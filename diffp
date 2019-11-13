@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Paste or type the first text now (press Enter, Ctrl-d when done):"
+diff1=$(</dev/stdin)
+echo "Paste or type the second text now (press Enter, Ctrl-d when done):"
+diff2=$(</dev/stdin)
+echo "-----------------------------------------------------"
+echo "| Your diff taken at $(date +'%H:%M (%s)') starts here |"
+echo "-----------------------------------------------------"
+diff <(echo "$diff1") <(echo "$diff2")
+if [[ $? -eq 0 ]]; then
+    echo "|                                                   |"
+    echo "| No diff. Inputs were identical.                   |"
+    echo "-----------------------------------------------------"
+else
+    echo "-----------------------------------------------------"
+    echo "| < this line came from your first input            |"
+    echo "| > this line came from your second input           |"
+    echo "-----------------------------------------------------"
+fi
+
+exit 0
